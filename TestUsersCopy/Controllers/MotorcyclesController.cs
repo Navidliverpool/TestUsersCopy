@@ -38,7 +38,9 @@ namespace TestUsersCopy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Motorcycle motorcycle = await db.Motorcycles.FindAsync(id);
+
+            Motorcycle motorcycle = await _motorcycleRepository.GetMotorcycleById(id);
+
             if (motorcycle == null)
             {
                 return HttpNotFound();
@@ -65,8 +67,8 @@ namespace TestUsersCopy.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Motorcycles.Add(motorcycle);
-                await db.SaveChangesAsync();
+                _motorcycleRepository.AddMotorcycle(motorcycle);
+                _motorcycleRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
 
