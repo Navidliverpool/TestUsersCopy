@@ -19,7 +19,7 @@ namespace TestUsersCopy.Data.Repositories
             return _storeDB.Motorcycles.Add(motorcycle);
         }
 
-        public IQueryable<Motorcycle> GetAllMotorcyclesIncludeBrandsCategories()
+        public IQueryable<Motorcycle> GetMotorcyclesIncludeBrandsCategories()
         {
             return _storeDB.Motorcycles.Include(m => m.Brand).Include(m => m.Category);
 
@@ -28,6 +28,11 @@ namespace TestUsersCopy.Data.Repositories
         public async Task<Motorcycle> GetMotorcycleById(int? id)
         {
             return await _storeDB.Motorcycles.FindAsync(id);
+        }
+
+        public Motorcycle GetMotorcycleIncludeItsDealers(int? id)
+        {
+            return _storeDB.Motorcycles.Include(i => i.Dealers).First(i => i.MotorcycleId == id);
         }
 
         public async void SaveChanges()

@@ -16,6 +16,7 @@ namespace TestUsersCopy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
+            services.AddScoped<IDealerRepository, DealerRepository>();
         }
 
     }

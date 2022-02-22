@@ -9,10 +9,11 @@ namespace TestUsersCopy.Data.Repositories
 {
     public interface IMotorcycleRepository
     {
-        IQueryable<Motorcycle> GetAllMotorcyclesIncludeBrandsCategories();
+        IQueryable<Motorcycle> GetMotorcyclesIncludeBrandsCategories();
         Task<Motorcycle> GetMotorcycleById(int? id);
 
         Motorcycle AddMotorcycle(Motorcycle motorcycle);
         void SaveChanges();
+        Motorcycle GetMotorcycleIncludeItsDealers(int? id);
     }
 }

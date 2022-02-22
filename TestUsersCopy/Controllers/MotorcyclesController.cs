@@ -16,9 +16,12 @@ namespace TestUsersCopy.Controllers
     {
         private NavEcommerceDBfirstEntities19 db = new NavEcommerceDBfirstEntities19();
         IMotorcycleRepository _motorcycleRepository;
-        public MotorcyclesController(IMotorcycleRepository motorcycleRepository)
+        IDealerRepository _dealerRepository;
+        public MotorcyclesController(IMotorcycleRepository motorcycleRepository,
+            IDealerRepository dealerRepository)
         {
             _motorcycleRepository = motorcycleRepository;
+            _dealerRepository = dealerRepository;
         }
 
         // GET: Motorcycles
@@ -26,7 +29,7 @@ namespace TestUsersCopy.Controllers
         public async Task<ActionResult> Index()
         {
 
-            var getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetAllMotorcyclesIncludeBrandsCategories();
+            var getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetMotorcyclesIncludeBrandsCategories();
 
             return View(await getAllMotorcyclesIncludeBrandsCategories.ToListAsync());
         }
@@ -88,13 +91,13 @@ namespace TestUsersCopy.Controllers
 
             var motorcycleViewModel = new MotorcycleVM
             {
-                Motorcycle = db.Motorcycles.Include(i => i.Dealers).First(i => i.MotorcycleId == id),
+                Motorcycle = _motorcycleRepository.GetMotorcycleIncludeItsDealers(id)
             };
 
             if (motorcycleViewModel.Motorcycle == null)
                 return HttpNotFound();
 
-            var allDealersList = db.Dealers.ToList();
+            var allDealersList = _dealerRepository.GetDealers();
 
             motorcycleViewModel.AllDealers = allDealersList.Select(d => new SelectListItem
             {
