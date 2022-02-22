@@ -7,6 +7,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TestUsersCopy.Data.Repositories;
 using TestUsersCopy.Models;
 
 namespace TestUsersCopy.Controllers
@@ -14,15 +15,20 @@ namespace TestUsersCopy.Controllers
     public class MotorcyclesController : Controller
     {
         private NavEcommerceDBfirstEntities19 db = new NavEcommerceDBfirstEntities19();
+        IMotorcycleRepository _motorcycleRepository;
+        public MotorcyclesController(IMotorcycleRepository motorcycleRepository)
+        {
+            _motorcycleRepository = motorcycleRepository;
+        }
 
         // GET: Motorcycles
         [Authorize()]
         public async Task<ActionResult> Index()
         {
 
-            var motorcycles = db.Motorcycles.Include(m => m.Brand).Include(m => m.Category);
+            var getAllMotorcyclesIncludeBrandsCategories = _motorcycleRepository.GetAllMotorcyclesIncludeBrandsCategories();
 
-            return View(await motorcycles.ToListAsync());
+            return View(await getAllMotorcyclesIncludeBrandsCategories.ToListAsync());
         }
 
         // GET: Motorcycles/Details/5

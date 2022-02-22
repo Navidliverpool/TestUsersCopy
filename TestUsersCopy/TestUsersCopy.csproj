@@ -45,12 +45,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.6.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -178,10 +190,12 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MotorcyclesController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
+    <Compile Include="Data\Repositories\IMotorcycleRepository.cs" />
+    <Compile Include="Data\Repositories\MotorcycleRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>NavEcommerceDBfirstModels19.tt</DependentUpon>
     </Compile>
@@ -198,7 +212,7 @@
       <DependentUpon>NavEcommerceDBfirstModels19.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BrandMetaData.cs" />
-    <Compile Include="Models\BrandVM.cs" />
+    <Compile Include="ViewModels\BrandVM.cs" />
     <Compile Include="Models\Cart.cs">
       <DependentUpon>NavEcommerceDBfirstModels19.tt</DependentUpon>
     </Compile>
@@ -209,14 +223,14 @@
       <DependentUpon>NavEcommerceDBfirstModels19.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DealerMetaData.cs" />
-    <Compile Include="Models\DealerVM.cs" />
+    <Compile Include="ViewModels\DealerVM.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\Motorcycle.cs">
       <DependentUpon>NavEcommerceDBfirstModels19.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MotorcycleMetaData.cs" />
-    <Compile Include="Models\MotorcycleVM.cs" />
+    <Compile Include="ViewModels\MotorcycleVM.cs" />
     <Compile Include="Models\NavEcommerceDBfirstModels19.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
