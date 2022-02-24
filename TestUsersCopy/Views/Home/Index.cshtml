@@ -1,31 +1,309 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model TestUsersCopy.ViewModels.HomeVM
+
+@{
+    ViewBag.Title = "2";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<style>
+
+        h1.SportTitle {
+            font-size: 100px;
+            background-color: white;
+            font-style: italic;
+            text-align: center;
+            /*        text-decoration: underline 1px;
+    */
+        }
+
+        .SmallImgsLocation {
+            display: block;
+            margin-top: 75px;
+            margin-left: auto;
+            /*        margin-bottom: 75px;
+    */ margin-right: auto;
+            width: 50%;
+        }
+
+        .mainImgSize {
+            width: 100%;
+        }
+
+        hr {
+            width: 80%;
+            height: 1px;
+            background-color: black;
+        }
+
+        .ImgContent {
+            display: block;
+            margin-top: 35px;
+            margin-left: 20.5%;
+            margin-bottom: 40px;
+            margin-right: auto;
+            width: 50%;
+        }
+
+        .fontWeight {
+            font-weight: bold;
+            font-size: large;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .boxShadow {
+            box-shadow: 1px 1px 20px black;
+        }
+
+        .addtocart {
+            margin-top: 7px;
+        }
+</style>
+
+<p>
+    <a href="https://localhost:44356/Motorcycles/Index">
+        <img class="mainImgSize" src="~/Content/images/config-banner.jpg" alt="Motorcycles" />
+    </a>
+</p>
+<div class="row">
+    <div class="col-sm-6">
+        <div id="slider" class="nivoSlider">
+            @foreach (var item in Model.MotorcyclesHomeVM)
+            {
+                if (item.Image != null)
+                {
+                    <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" />
+                }
+            }
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div id="slider2" class="nivoSlider">
+            @foreach (var item in Model.BrandsHomeVM)
+            {
+                if (item.Image != null)
+                {
+                    <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" />
+                }
+            }
+        </div>
+    </div>
 </div>
 
+<h1 class="SportTitle">Sport</h1>
+<hr>
+
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+    @foreach (var item in Model.SportBikesHomeVM)
+    {
+        if (item != null)
+        {
+            <div class="col-sm-3">
+                <div>
+                    <div class="SmallImgsLocation">
+                        <a href="https://localhost:44356/Motorcycles">
+                            <img class="boxShadow" src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="250" height="250" />
+                        </a>
+
+                    </div>
+                    <div class="ImgContent">
+                        <ul>
+                            <li class="fontWeight">Brand: @item.Brand.Name</li>
+                            <li>Model: @item.Model</li>
+                            <li>
+                                Dealers:
+                                @foreach (var dealer in item.Dealers)
+                                {
+                                    @dealer.Name
+                                }
+                            </li>
+                            <li>Price: <strong>£@item.Price</strong></li>
+                            <div class="addtocart">
+                                <button type="button">@Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { id = item.MotorcycleId }, "")</button>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 </div>
+
+<h1 class="SportTitle">Street</h1>
+<hr>
+
+<div class="row">
+    @foreach (var item in Model.StreetBikesHomeVM)
+    {
+        if (item != null)
+        {
+            <div class="col-sm-3">
+                <div>
+                    <div class="SmallImgsLocation">
+                        <a href="https://localhost:44356/Motorcycles">
+                            <img class="boxShadow" src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="250" height="250" />
+                        </a>
+
+                    </div>
+                    <div class="ImgContent">
+                        <ul>
+                            <li class="fontWeight">Brand: @item.Brand.Name</li>
+                            <li>Model: @item.Model</li>
+                            <li>
+                                Dealers:
+                                @foreach (var dealer in item.Dealers)
+                                {
+                                    @dealer.Name
+                                }
+                            </li>
+                            <li>Price: <strong>£@item.Price</strong></li>
+                            <div class="addtocart">
+                                <button type="button">@Html.ActionLink("Add To Cart", "AddToCart", "ShoppingCart", new { id = item.MotorcycleId }, null)</button>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<h1 class="SportTitle">Adventure</h1>
+<hr>
+
+<div class="row">
+    @foreach (var item in Model.AdventureBikesHomeVM)
+    {
+        if (item != null)
+        {
+            <div class="col-sm-3">
+                <div>
+                    <div class="SmallImgsLocation">
+                        <a href="https://localhost:44356/Motorcycles">
+                            <img class="boxShadow" src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="250" height="250" />
+                        </a>
+
+                    </div>
+                    <div class="ImgContent">
+                        <ul>
+                            <li class="fontWeight">Brand: @item.Brand.Name</li>
+                            <li>Model: @item.Model</li>
+                            <li>
+                                Dealers:
+                                @foreach (var dealer in item.Dealers)
+                                {
+                                    @dealer.Name
+                                }
+                            </li>
+                            <li>Price: <strong>£@item.Price</strong></li>
+                            <div class="addtocart">
+                                <button type="button">@Html.ActionLink("Add To Cart", "AddToCart", "ShoppingCart", new { id = item.MotorcycleId }, null)</button>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<h1 class="SportTitle">Scooter</h1>
+<hr>
+
+<div class="row">
+    @foreach (var item in Model.ScooterBikesHomeVM)
+    {
+        if (item != null)
+        {
+            <div class="col-sm-3">
+                <div>
+                    <div class="SmallImgsLocation">
+                        <a href="https://localhost:44356/Motorcycles">
+                            <img class="boxShadow" src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="250" height="250" />
+                        </a>
+
+                    </div>
+                    <div class="ImgContent">
+                        <ul>
+                            <li class="fontWeight">Brand: @item.Brand.Name</li>
+                            <li>Model: @item.Model</li>
+                            <li>
+                                Dealers:
+                                @foreach (var dealer in item.Dealers)
+                                {
+                                    @dealer.Name
+                                }
+                            </li>
+                            <li>Price: <strong>£@item.Price</strong></li>
+                            <div class="addtocart">
+                                <button type="button">@Html.ActionLink("Add To Cart", "AddToCart", "ShoppingCart", new { id = item.MotorcycleId }, null)</button>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.nivo.slider.js"></script>
+
+<script type="text/javascript">
+    $(window).load(function () {
+        $('#slider').nivoSlider();
+    });
+
+    $(window).load(function () {
+        $('#slider').nivoSlider({
+            effect: 'random',
+            slices: 15,
+            boxCols: 8,
+            boxRows: 4,
+            animSpeed: 500,
+            pauseTime: 3000,
+            startSlide: 0,
+            directionNav: true,
+            controlNav: true,
+            controlNavThumbs: false,
+            pauseOnHover: true,
+            manualAdvance: false,
+            prevText: 'Prev',
+            nextText: 'Next',
+            randomStart: false,
+            beforeChange: function () { },
+            afterChange: function () { },
+            slideshowEnd: function () { },
+            lastSlide: function () { },
+            afterLoad: function () { }
+        });
+    });
+
+    $(window).load(function () {
+        $('#slider2').nivoSlider();
+    });
+
+    $(window).load(function () {
+        $('#slider2').nivoSlider({
+            effect: 'random',
+            slices: 15,
+            boxCols: 8,
+            boxRows: 4,
+            animSpeed: 500,
+            pauseTime: 3000,
+            startSlide: 0,
+            directionNav: true,
+            controlNav: true,
+            controlNavThumbs: false,
+            pauseOnHover: true,
+            manualAdvance: false,
+            prevText: 'Prev',
+            nextText: 'Next',
+            randomStart: false,
+            beforeChange: function () { },
+            afterChange: function () { },
+            slideshowEnd: function () { },
+            lastSlide: function () { },
+            afterLoad: function () { }
+        });
+    });
+</script>
+

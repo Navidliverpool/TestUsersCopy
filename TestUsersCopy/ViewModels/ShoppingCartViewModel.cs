@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using TestUsersCopy.Models;
 
-namespace TestUsers.ViewModels
+namespace TestUsersCopy.ViewModels
 {
     public class ShoppingCartViewModel
     {

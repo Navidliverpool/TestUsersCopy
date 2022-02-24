@@ -13,6 +13,10 @@ namespace TestUsersCopy.Data.Repositories
         {
             _storeDB = storeDB;
         }
+        public DealerRepository()
+        {
+
+        }
         public List<Dealer> GetDealers()
         {
             return _storeDB.Dealers.ToList();

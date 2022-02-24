@@ -2,6 +2,7 @@
 using Microsoft.Owin;
 using Owin;
 using TestUsersCopy.Data.Repositories;
+using TestUsersCopy.Models;
 
 [assembly: OwinStartupAttribute(typeof(TestUsersCopy.Startup))]
 namespace TestUsersCopy
@@ -15,8 +16,6 @@ namespace TestUsersCopy
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IMotorcycleRepository, MotorcycleRepository>();
-            services.AddScoped<IDealerRepository, DealerRepository>();
         }
 
     }

@@ -17,6 +17,7 @@ namespace TestUsersCopy.Controllers
         private NavEcommerceDBfirstEntities19 db = new NavEcommerceDBfirstEntities19();
         IMotorcycleRepository _motorcycleRepository;
         IDealerRepository _dealerRepository;
+
         public MotorcyclesController(IMotorcycleRepository motorcycleRepository,
             IDealerRepository dealerRepository)
         {
@@ -65,19 +66,40 @@ namespace TestUsersCopy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MotorcycleId,Model,Price,BrandId,CategoryId")] Motorcycle motorcycle)
+        public async Task<ActionResult> Create([Bind(Include = "MotorcycleId,Model,Price,BrandId,CategoryId")] MotorcycleVM motorcycleToUpdate, HttpPostedFileBase image)
         {
 
             if (ModelState.IsValid)
             {
-                _motorcycleRepository.AddMotorcycle(motorcycle);
-                _motorcycleRepository.SaveChanges();
-                return RedirectToAction("Index");
+                //_motorcycleRepository.AddMotorcycle(motorcycle);
+
+                if (image != null)
+                {
+                    byte[] data;
+                    using (Stream inputStream = image.InputStream)
+                    {
+                        MemoryStream memoryStream = inputStream as MemoryStream;
+                        if (memoryStream == null)
+                        {
+                            memoryStream = new MemoryStream();
+                            inputStream.CopyTo(memoryStream);
+                        }
+                        data = memoryStream.ToArray();
+                    }
+
+                    motorcycleToUpdate.Motorcycle.Image = data;
+                }
+
+                db.Entry(motorcycleToUpdate).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                //_motorcycleRepository.SaveChanges();
+                //return RedirectToAction("Index");
             }
 
-            ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name", motorcycle.BrandId);
-            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "MotoCategory", motorcycle.CategoryId);
-            return View(motorcycle);
+            ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name", motorcycleToUpdate.Motorcycle.BrandId);
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "MotoCategory", motorcycleToUpdate.Motorcycle.CategoryId);
+            return View(motorcycleToUpdate);
         }
 
         // GET: Motorcycles/Edit/5

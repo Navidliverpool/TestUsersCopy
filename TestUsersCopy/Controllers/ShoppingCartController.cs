@@ -1,7 +1,5 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using TestUsers.Models;
-using TestUsers.ViewModels;
 using TestUsersCopy.Models;
 using TestUsersCopy.ViewModels;
 
