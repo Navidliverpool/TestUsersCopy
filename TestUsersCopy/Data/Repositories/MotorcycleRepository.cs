@@ -14,6 +14,8 @@ namespace TestUsersCopy.Data.Repositories
             _storeDB = storeDB;
         }
 
+
+
         public Motorcycle AddMotorcycle(Motorcycle motorcycle)
         {
             return _storeDB.Motorcycles.Add(motorcycle);
@@ -38,6 +40,11 @@ namespace TestUsersCopy.Data.Repositories
         public async void SaveChanges()
         {
            await _storeDB.SaveChangesAsync();
+        }
+
+        public IQueryable<Motorcycle> GetMotorcycles()
+        {
+            return _storeDB.Motorcycles;
         }
     }
 }

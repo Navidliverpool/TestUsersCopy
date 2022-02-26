@@ -25,7 +25,9 @@ namespace TestUsersCopy
 
             // e.g. container.RegisterType<ITestService, TestService>();    
             container.RegisterType<IMotorcycleRepository, MotorcycleRepository>();
+            container.RegisterType<IBrandRepository, BrandRepository>();
             container.RegisterType<IDealerRepository, DealerRepository>();
+            container.RegisterType<ICategoryRepository, CategoryRepository>();
 
             RegisterTypes(container);
 

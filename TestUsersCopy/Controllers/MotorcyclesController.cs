@@ -16,13 +16,19 @@ namespace TestUsersCopy.Controllers
     {
         private NavEcommerceDBfirstEntities19 db = new NavEcommerceDBfirstEntities19();
         IMotorcycleRepository _motorcycleRepository;
+        IBrandRepository _brandRepository;
         IDealerRepository _dealerRepository;
+        ICategoryRepository _categoryRepository;
 
         public MotorcyclesController(IMotorcycleRepository motorcycleRepository,
-            IDealerRepository dealerRepository)
+            IBrandRepository brandRepository,
+            IDealerRepository dealerRepository,
+            ICategoryRepository categoryRepository)
         {
             _motorcycleRepository = motorcycleRepository;
+            _brandRepository = brandRepository;
             _dealerRepository = dealerRepository;
+            _categoryRepository = categoryRepository;
         }
 
         // GET: Motorcycles
@@ -56,8 +62,8 @@ namespace TestUsersCopy.Controllers
         [Authorize()]
         public ActionResult Create()
         {
-            ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
-            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "MotoCategory");
+            ViewBag.BrandId = new SelectList(_brandRepository.GetBrands(), "BrandId", "Name");
+            ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories(), "CategoryId", "MotoCategory");
             return View();
         }
 

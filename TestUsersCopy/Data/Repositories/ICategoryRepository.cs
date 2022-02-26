@@ -7,8 +7,8 @@ using TestUsersCopy.Models;
 
 namespace TestUsersCopy.Data.Repositories
 {
-    public interface IDealerRepository
+    public interface ICategoryRepository
     {
-        IQueryable<Dealer> GetDealers();
+        IQueryable<Category> GetCategories();
     }
 }

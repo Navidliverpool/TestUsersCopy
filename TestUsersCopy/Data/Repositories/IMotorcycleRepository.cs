@@ -9,6 +9,7 @@ namespace TestUsersCopy.Data.Repositories
 {
     public interface IMotorcycleRepository
     {
+        IQueryable<Motorcycle> GetMotorcycles();
         IQueryable<Motorcycle> GetMotorcyclesIncludeBrandsCategories();
         Task<Motorcycle> GetMotorcycleById(int? id);
 

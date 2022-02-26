@@ -212,7 +212,11 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MotorcyclesController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
+    <Compile Include="Data\Repositories\BrandRepository.cs" />
+    <Compile Include="Data\Repositories\CategoryRepository.cs" />
     <Compile Include="Data\Repositories\DealerRepository.cs" />
+    <Compile Include="Data\Repositories\IBrandRepository.cs" />
+    <Compile Include="Data\Repositories\ICategoryRepository.cs" />
     <Compile Include="Data\Repositories\IDealerRepository.cs" />
     <Compile Include="Data\Repositories\IMotorcycleRepository.cs" />
     <Compile Include="Data\Repositories\MotorcycleRepository.cs" />

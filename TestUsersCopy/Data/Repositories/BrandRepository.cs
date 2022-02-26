@@ -6,16 +6,16 @@ using TestUsersCopy.Models;
 
 namespace TestUsersCopy.Data.Repositories
 {
-    public class DealerRepository : IDealerRepository
+    public class BrandRepository : IBrandRepository
     {
         NavEcommerceDBfirstEntities19 _storeDB;
-        public DealerRepository(NavEcommerceDBfirstEntities19 storeDB)
+        public BrandRepository(NavEcommerceDBfirstEntities19 storeDB)
         {
             _storeDB = storeDB;
         }
-        public IQueryable<Dealer> GetDealers()
+        public IQueryable<Brand> GetBrands()
         {
-            return _storeDB.Dealers;
+            return _storeDB.Brands;
         }
     }
 }
