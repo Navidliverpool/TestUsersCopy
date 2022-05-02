@@ -31,10 +31,9 @@ namespace TestUsersCopy.Controllers
                 StreetBikesHomeVM = streetBikes,
                 SportBikesHomeVM = sportBikes,
                 AdventureBikesHomeVM = adventureBikes,
-                ScooterBikesHomeVM = scooterBikes
+                ScooterBikesHomeVM = scooterBikes,
                 //CategoriesHomeVM = categories
             };
-
             return View(homeVM);
         }
 

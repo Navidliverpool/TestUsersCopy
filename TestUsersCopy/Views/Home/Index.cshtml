@@ -6,56 +6,68 @@
 
 <style>
 
-        h1.SportTitle {
-            font-size: 100px;
-            background-color: white;
-            font-style: italic;
-            text-align: center;
-            /*        text-decoration: underline 1px;
+
+    .ImgPosition {
+        display: block;
+        margin-top: 55px;
+        margin-bottom: 40px;
+    }
+
+    h1.SportTitle {
+        font-size: 100px;
+        background-color: white;
+        font-style: italic;
+        text-align: center;
+        /*        text-decoration: underline 1px;
     */
-        }
+    }
 
-        .SmallImgsLocation {
-            display: block;
-            margin-top: 75px;
-            margin-left: auto;
-            /*        margin-bottom: 75px;
-    */ margin-right: auto;
-            width: 50%;
-        }
+    .SmallImgsLocation {
+        display: block;
+        margin-top: 75px;
+        margin-left: auto;
+        margin-bottom: 75px;
+        margin-right: auto;
+        width: 50%;
+    }
 
-        .mainImgSize {
-            width: 100%;
-        }
+    .mainImgSize {
+        width: 100%;
+    }
 
-        hr {
-            width: 80%;
-            height: 1px;
-            background-color: black;
-        }
+    hr {
+        width: 80%;
+        height: 1px;
+        background-color: black;
+    }
 
-        .ImgContent {
-            display: block;
-            margin-top: 35px;
-            margin-left: 20.5%;
-            margin-bottom: 40px;
-            margin-right: auto;
-            width: 50%;
-        }
+    .ImgAndContent.ImgContent {
+/*        display: flex;
+*/        margin-top: 5px;
+        margin-left: 20.5%;
+        margin-bottom: 40px;
+        margin-right: auto;
+        width: 50%;
+    }
 
-        .fontWeight {
-            font-weight: bold;
-            font-size: large;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        }
+    .fontWeight {
+        font-weight: bold;
+        font-size: large;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
 
-        .boxShadow {
-            box-shadow: 1px 1px 20px black;
-        }
+    .boxShadow {
+        box-shadow: 1px 1px 20px black;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 150px;
+        height: 150px;
+    }
 
-        .addtocart {
-            margin-top: 7px;
-        }
+    .addtocart {
+        margin-top: 7px;
+    }
 </style>
 
 <p>
@@ -92,37 +104,37 @@
 <hr>
 
 <div class="row">
+
     @foreach (var item in Model.SportBikesHomeVM)
     {
         if (item != null)
         {
-            <div class="col-sm-3">
-                <div>
-                    <div class="SmallImgsLocation">
-                        <a href="https://localhost:44356/Motorcycles">
-                            <img class="boxShadow" src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="250" height="250" />
-                        </a>
+    <div class="col-sm-3">
 
-                    </div>
-                    <div class="ImgContent">
-                        <ul>
-                            <li class="fontWeight">Brand: @item.Brand.Name</li>
-                            <li>Model: @item.Model</li>
-                            <li>
-                                Dealers:
-                                @foreach (var dealer in item.Dealers)
-                                {
-                                    @dealer.Name
-                                }
-                            </li>
-                            <li>Price: <strong>£@item.Price</strong></li>
-                            <div class="addtocart">
-                                <button type="button">@Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { id = item.MotorcycleId }, "")</button>
-                            </div>
-                        </ul>
-                    </div>
+        <div class="ImgPosition">
+            <a href="https://localhost:44356/Motorcycles">
+                <img class="boxShadow" src="data:image;base64,@System.Convert.ToBase64String(item.Image)" />
+            </a>
+        </div>
+
+        <div class="ImgContent">
+            <ul>
+                <li class="fontWeight">Brand: @item.Brand.Name</li>
+                <li>Model: @item.Model</li>
+                <li>
+                    Dealers:
+                    @foreach (var dealer in item.Dealers)
+                    {
+                        @dealer.Name
+                    }
+                </li>
+                <li>Price: <strong>£@item.Price</strong></li>
+                <div class="addtocart">
+                    <button type="button">@Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { id = item.MotorcycleId }, "")</button>
                 </div>
-            </div>
+            </ul>
+        </div>
+    </div>
         }
     }
 </div>

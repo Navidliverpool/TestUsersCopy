@@ -14,7 +14,10 @@ namespace TestUsersCopy.Data.Repositories
             _storeDB = storeDB;
         }
 
+        public MotorcycleRepository()
+        {
 
+        }
 
         public Motorcycle AddMotorcycle(Motorcycle motorcycle)
         {

@@ -31,6 +31,11 @@ namespace TestUsersCopy.Controllers
             _categoryRepository = categoryRepository;
         }
 
+        public MotorcyclesController()
+        {
+
+        }
+
         // GET: Motorcycles
         [Authorize()]
         public async Task<ActionResult> Index()
@@ -103,8 +108,8 @@ namespace TestUsersCopy.Controllers
                 //return RedirectToAction("Index");
             }
 
-            ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name", motorcycleToUpdate.Motorcycle.BrandId);
-            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "MotoCategory", motorcycleToUpdate.Motorcycle.CategoryId);
+            ViewBag.BrandId = new SelectList(_brandRepository.GetBrands(), "BrandId", "Name", motorcycleToUpdate.Motorcycle.BrandId);
+            ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories(), "CategoryId", "MotoCategory", motorcycleToUpdate.Motorcycle.CategoryId);
             return View(motorcycleToUpdate);
         }
 
@@ -202,7 +207,6 @@ namespace TestUsersCopy.Controllers
 
                 }
             }
-
 
             var allDealersList = db.Dealers.ToList();
 

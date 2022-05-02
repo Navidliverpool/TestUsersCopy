@@ -14,11 +14,9 @@ namespace TestUsersCopy.ViewModels
         public IEnumerable<Motorcycle> StreetBikesHomeVM { get; set; }
         public IEnumerable<Motorcycle> SportBikesHomeVM { get; set; }
         public IEnumerable<Motorcycle> AdventureBikesHomeVM { get; set; }
-
         public IEnumerable<Motorcycle> ScooterBikesHomeVM { get; set; }
 
         //public IEnumerable<Motorcycle> CategoriesHomeVM { get; set; }
-
 
     }
 }

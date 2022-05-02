@@ -20,18 +20,17 @@ namespace TestUsersCopy
     {
       var container = new UnityContainer();
 
-            // register all your components with the container here
-            // it is NOT necessary to register your controllers
+      // register all your components with the container here
+      // it is NOT necessary to register your controllers
 
-            // e.g. container.RegisterType<ITestService, TestService>();    
+      // e.g. container.RegisterType<ITestService, TestService>();    
+      RegisterTypes(container);
             container.RegisterType<IMotorcycleRepository, MotorcycleRepository>();
             container.RegisterType<IBrandRepository, BrandRepository>();
             container.RegisterType<IDealerRepository, DealerRepository>();
             container.RegisterType<ICategoryRepository, CategoryRepository>();
 
-            RegisterTypes(container);
-
-      return container;
+            return container;
     }
 
     public static void RegisterTypes(IUnityContainer container)
