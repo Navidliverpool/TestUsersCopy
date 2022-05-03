@@ -14,7 +14,7 @@ namespace TestUsersCopy.Models
     using System.Data.Entity.Infrastructure;
     
     public partial class NavEcommerceDBfirstEntities19 : DbContext
-    {
+    {   
         public NavEcommerceDBfirstEntities19()
             : base("name=NavEcommerceDBfirstEntities19")
         {

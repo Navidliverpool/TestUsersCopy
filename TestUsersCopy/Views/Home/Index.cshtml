@@ -6,6 +6,9 @@
 
 <style>
 
+    .row{
+        margin-bottom: 75px;
+    }
 
     .ImgPosition {
         display: block;
@@ -13,13 +16,16 @@
         margin-bottom: 40px;
     }
 
-    h1.SportTitle {
+    .Content {
+        margin-left: 40px;
+    }
+
+    h1.Title {
         font-size: 100px;
         background-color: white;
         font-style: italic;
         text-align: center;
-        /*        text-decoration: underline 1px;
-    */
+        /*text-decoration: underline 1px;*/
     }
 
     .SmallImgsLocation {
@@ -41,7 +47,7 @@
         background-color: black;
     }
 
-    .ImgAndContent.ImgContent {
+    .ImgAndContent.Content {
 /*        display: flex;
 */        margin-top: 5px;
         margin-left: 20.5%;
@@ -57,6 +63,7 @@
     }
 
     .boxShadow {
+        cursor: pointer;
         box-shadow: 1px 1px 20px black;
         display: block;
         margin-left: auto;
@@ -100,7 +107,7 @@
     </div>
 </div>
 
-<h1 class="SportTitle">Sport</h1>
+<h1 class="Title">Sport</h1>
 <hr>
 
 <div class="row">
@@ -112,12 +119,12 @@
     <div class="col-sm-3">
 
         <div class="ImgPosition">
-            <a href="https://localhost:44356/Motorcycles">
+            @*<a href="https://localhost:44356/Motorcycles">*@
                 <img class="boxShadow" src="data:image;base64,@System.Convert.ToBase64String(item.Image)" />
-            </a>
+            @*</a>*@
         </div>
 
-        <div class="ImgContent">
+        <div class="Content">
             <ul>
                 <li class="fontWeight">Brand: @item.Brand.Name</li>
                 <li>Model: @item.Model</li>
@@ -139,7 +146,7 @@
     }
 </div>
 
-<h1 class="SportTitle">Street</h1>
+<h1 class="Title">Street</h1>
 <hr>
 
 <div class="row">
@@ -148,37 +155,34 @@
         if (item != null)
         {
             <div class="col-sm-3">
-                <div>
-                    <div class="SmallImgsLocation">
-                        <a href="https://localhost:44356/Motorcycles">
-                            <img class="boxShadow" src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="250" height="250" />
-                        </a>
 
-                    </div>
-                    <div class="ImgContent">
-                        <ul>
-                            <li class="fontWeight">Brand: @item.Brand.Name</li>
-                            <li>Model: @item.Model</li>
-                            <li>
-                                Dealers:
-                                @foreach (var dealer in item.Dealers)
-                                {
-                                    @dealer.Name
-                                }
-                            </li>
-                            <li>Price: <strong>£@item.Price</strong></li>
-                            <div class="addtocart">
-                                <button type="button">@Html.ActionLink("Add To Cart", "AddToCart", "ShoppingCart", new { id = item.MotorcycleId }, null)</button>
-                            </div>
-                        </ul>
-                    </div>
+                <div class="ImgPosition">
+                        <img class="boxShadow" src="data:image;base64,@System.Convert.ToBase64String(item.Image)" />
+                </div>
+
+                <div class="Content">
+                    <ul>
+                        <li class="fontWeight">Brand: @item.Brand.Name</li>
+                        <li>Model: @item.Model</li>
+                        <li>
+                            Dealers:
+                            @foreach (var dealer in item.Dealers)
+                            {
+                                @dealer.Name
+                            }
+                        </li>
+                        <li>Price: <strong>£@item.Price</strong></li>
+                        <div class="addtocart">
+                            <button type="button">@Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { id = item.MotorcycleId }, "")</button>
+                        </div>
+                    </ul>
                 </div>
             </div>
         }
     }
 </div>
 
-<h1 class="SportTitle">Adventure</h1>
+<h1 class="Title">Adventure</h1>
 <hr>
 
 <div class="row">
@@ -187,37 +191,34 @@
         if (item != null)
         {
             <div class="col-sm-3">
-                <div>
-                    <div class="SmallImgsLocation">
-                        <a href="https://localhost:44356/Motorcycles">
-                            <img class="boxShadow" src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="250" height="250" />
-                        </a>
 
-                    </div>
-                    <div class="ImgContent">
-                        <ul>
-                            <li class="fontWeight">Brand: @item.Brand.Name</li>
-                            <li>Model: @item.Model</li>
-                            <li>
-                                Dealers:
-                                @foreach (var dealer in item.Dealers)
-                                {
-                                    @dealer.Name
-                                }
-                            </li>
-                            <li>Price: <strong>£@item.Price</strong></li>
-                            <div class="addtocart">
-                                <button type="button">@Html.ActionLink("Add To Cart", "AddToCart", "ShoppingCart", new { id = item.MotorcycleId }, null)</button>
-                            </div>
-                        </ul>
-                    </div>
+                <div class="ImgPosition">
+                        <img class="boxShadow" src="data:image;base64,@System.Convert.ToBase64String(item.Image)" />
+                </div>
+
+                <div class="Content">
+                    <ul>
+                        <li class="fontWeight">Brand: @item.Brand.Name</li>
+                        <li>Model: @item.Model</li>
+                        <li>
+                            Dealers:
+                            @foreach (var dealer in item.Dealers)
+                            {
+                                @dealer.Name
+                            }
+                        </li>
+                        <li>Price: <strong>£@item.Price</strong></li>
+                        <div class="addtocart">
+                            <button type="button">@Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { id = item.MotorcycleId }, "")</button>
+                        </div>
+                    </ul>
                 </div>
             </div>
         }
     }
 </div>
 
-<h1 class="SportTitle">Scooter</h1>
+<h1 class="Title">Scooter</h1>
 <hr>
 
 <div class="row">
@@ -226,30 +227,27 @@
         if (item != null)
         {
             <div class="col-sm-3">
-                <div>
-                    <div class="SmallImgsLocation">
-                        <a href="https://localhost:44356/Motorcycles">
-                            <img class="boxShadow" src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="250" height="250" />
-                        </a>
 
-                    </div>
-                    <div class="ImgContent">
-                        <ul>
-                            <li class="fontWeight">Brand: @item.Brand.Name</li>
-                            <li>Model: @item.Model</li>
-                            <li>
-                                Dealers:
-                                @foreach (var dealer in item.Dealers)
-                                {
-                                    @dealer.Name
-                                }
-                            </li>
-                            <li>Price: <strong>£@item.Price</strong></li>
-                            <div class="addtocart">
-                                <button type="button">@Html.ActionLink("Add To Cart", "AddToCart", "ShoppingCart", new { id = item.MotorcycleId }, null)</button>
-                            </div>
-                        </ul>
-                    </div>
+                <div class="ImgPosition">
+                        <img class="boxShadow" src="data:image;base64,@System.Convert.ToBase64String(item.Image)" />
+                </div>
+
+                <div class="Content">
+                    <ul>
+                        <li class="fontWeight">Brand: @item.Brand.Name</li>
+                        <li>Model: @item.Model</li>
+                        <li>
+                            Dealers:
+                            @foreach (var dealer in item.Dealers)
+                            {
+                                @dealer.Name
+                            }
+                        </li>
+                        <li>Price: <strong>£@item.Price</strong></li>
+                        <div class="addtocart">
+                            <button type="button">@Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { id = item.MotorcycleId }, "")</button>
+                        </div>
+                    </ul>
                 </div>
             </div>
         }

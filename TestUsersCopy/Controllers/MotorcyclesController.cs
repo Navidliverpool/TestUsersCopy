@@ -31,11 +31,6 @@ namespace TestUsersCopy.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        public MotorcyclesController()
-        {
-
-        }
-
         // GET: Motorcycles
         [Authorize()]
         public async Task<ActionResult> Index()
