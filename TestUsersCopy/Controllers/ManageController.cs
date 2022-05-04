@@ -22,6 +22,11 @@ namespace TestUsersCopy.Controllers
             SignInManager = signInManager;
         }
 
+        public ManageController()
+        {
+
+        }
+
         public ApplicationSignInManager SignInManager
         {
             get

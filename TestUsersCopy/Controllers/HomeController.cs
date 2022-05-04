@@ -11,6 +11,11 @@ namespace TestUsersCopy.Controllers
     {
         private NavEcommerceDBfirstEntities19 db = new NavEcommerceDBfirstEntities19();
 
+        public HomeController()
+        {
+
+        }
+
         public async Task<ActionResult> Index()
         {
             var motorcycle = db.Motorcycles.ToList();

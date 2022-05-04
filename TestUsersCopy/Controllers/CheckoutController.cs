@@ -10,6 +10,12 @@ namespace TestUsersCopy.Controllers
     {
         NavEcommerceDBfirstEntities19 storeDB = new NavEcommerceDBfirstEntities19();
         const string PromoCode = "FREE";
+
+        public CheckoutController()
+        {
+
+        }
+
         //
         // GET: /Checkout/AddressAndPayment
         public ActionResult AddressAndPayment()

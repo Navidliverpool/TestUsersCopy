@@ -9,6 +9,10 @@ namespace TestUsers.Controllers
     {
         NavEcommerceDBfirstEntities19 storeDB = new NavEcommerceDBfirstEntities19();
 
+        public ShoppingCartController()
+        {
+
+        }
         //
         // GET: /ShoppingCart/
 

@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Practices.Unity;
+using TestUsersCopy.Controllers;
 using TestUsersCopy.Data.Repositories;
 using TestUsersCopy.Models;
 using Unity.Mvc4;
@@ -32,6 +33,8 @@ namespace TestUsersCopy
             container.RegisterType<IDealerRepository, DealerRepository>();
             container.RegisterType<ICategoryRepository, CategoryRepository>();
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
+            container.RegisterType<AccountController>(new InjectionConstructor());
+
 
             RegisterTypes(container);
 

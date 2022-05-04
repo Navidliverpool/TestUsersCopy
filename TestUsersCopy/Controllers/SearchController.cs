@@ -12,6 +12,11 @@ namespace TestUsersCopy.Controllers
     {
         private NavEcommerceDBfirstEntities19 db = new NavEcommerceDBfirstEntities19();
 
+        public SearchController()
+        {
+
+        }
+
         // GET: Search
         public async Task<ActionResult> Index(string search)
         {

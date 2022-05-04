@@ -13,6 +13,11 @@ namespace TestUsersCopy.Controllers
     {
         private NavEcommerceDBfirstEntities19 db = new NavEcommerceDBfirstEntities19();
 
+        public DealersController()
+        {
+
+        }
+
         // GET: Dealers
         [Authorize()]
         public async Task<ActionResult> Index()
