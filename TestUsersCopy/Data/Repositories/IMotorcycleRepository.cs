@@ -13,7 +13,7 @@ namespace TestUsersCopy.Data.Repositories
         IQueryable<Motorcycle> GetMotorcyclesIncludeBrandsCategories();
         Task<Motorcycle> GetMotorcycleById(int? id);
 
-        Motorcycle AddMotorcycle(Motorcycle motorcycle);
+        void AddMotorcycle(Motorcycle motorcycle);
         void SaveChanges();
         Motorcycle GetMotorcycleIncludeItsDealers(int? id);
     }

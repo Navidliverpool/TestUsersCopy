@@ -19,9 +19,9 @@ namespace TestUsersCopy.Data.Repositories
 
         }
 
-        public Motorcycle AddMotorcycle(Motorcycle motorcycle)
+        public void AddMotorcycle(Motorcycle motorcycle)
         {
-            return _storeDB.Motorcycles.Add(motorcycle);
+            _storeDB.Motorcycles.Add(motorcycle);
         }
 
         public IQueryable<Motorcycle> GetMotorcyclesIncludeBrandsCategories()
@@ -49,5 +49,13 @@ namespace TestUsersCopy.Data.Repositories
         {
             return _storeDB.Motorcycles;
         }
+
+
+        ////This method was suppose to be used for refactoring the project in order to implement DI. But I undo it for now.
+        //void IDbCommon<MotorcycleVM>.EntryState(MotorcycleVM motorcycleVM)
+        //{
+        //    _storeDB.Entry(motorcycleVM).State = System.Data.Entity.EntityState.Modified;
+        //    _storeDB.SaveChanges();
+        //}
     }
 }

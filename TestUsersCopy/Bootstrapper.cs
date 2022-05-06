@@ -35,6 +35,8 @@ namespace TestUsersCopy
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
             container.RegisterType<AccountController>(new InjectionConstructor());
 
+            ////This was suppose to be used for refactoring the project in order to implement DI. But I undo it and it's dependencies for now.
+            //container.RegisterType<IDbCommon<MotorcycleVM>, DbCommon<MotorcycleVM>>();
 
             RegisterTypes(container);
 

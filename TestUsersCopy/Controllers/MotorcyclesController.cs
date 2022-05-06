@@ -15,6 +15,10 @@ namespace TestUsersCopy.Controllers
     public class MotorcyclesController : Controller
     {
         private NavEcommerceDBfirstEntities19 db = new NavEcommerceDBfirstEntities19();
+
+        ////This interface was suppose to be used for refactoring the project in order to implement DI. But I undo it and it's dependencies for now.
+        //IDbCommon<MotorcycleVM> _db;
+
         IMotorcycleRepository _motorcycleRepository;
         IBrandRepository _brandRepository;
         IDealerRepository _dealerRepository;
@@ -76,13 +80,10 @@ namespace TestUsersCopy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MotorcycleId,Model,Price,BrandId,CategoryId")] MotorcycleVM motorcycleToUpdate, HttpPostedFileBase image)
+        public async Task<ActionResult> Create([Bind(Include = "MotorcycleId,Model,Price,Name,CategoryId")] Motorcycle motorcycleViewModel, HttpPostedFileBase image)
         {
-
             if (ModelState.IsValid)
             {
-                //_motorcycleRepository.AddMotorcycle(motorcycle);
-
                 if (image != null)
                 {
                     byte[] data;
@@ -97,19 +98,25 @@ namespace TestUsersCopy.Controllers
                         data = memoryStream.ToArray();
                     }
 
-                    motorcycleToUpdate.Motorcycle.Image = data;
+                    motorcycleViewModel.Image = data;
                 }
 
-                db.Entry(motorcycleToUpdate).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
+                var createModel = new Motorcycle();
+                createModel.Model = motorcycleViewModel.Model;
+                createModel.Price = motorcycleViewModel.Price;
+                createModel.Brand.Name = motorcycleViewModel.Brand.Name;
+                createModel.Category.CategoryId = (int)motorcycleViewModel.CategoryId;
+                createModel.Image = motorcycleViewModel.Image;
 
-                //_motorcycleRepository.SaveChanges();
-                //return RedirectToAction("Index");
+                ////This was suppose to be used for refactoring the project in order to implement DI. But I undo it and it's dependencies for now.
+                //(_motorcycleRepository as IDbCommon<MotorcycleVM>).EntryState(motorcycleToUpdate);
+
+                db.Entry(createModel).State = System.Data.Entity.EntityState.Modified;
+
+                
             }
 
-            ViewBag.BrandId = new SelectList(_brandRepository.GetBrands(), "BrandId", "Name", motorcycleToUpdate.Motorcycle.BrandId);
-            ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories(), "CategoryId", "MotoCategory", motorcycleToUpdate.Motorcycle.CategoryId);
-            return View(motorcycleToUpdate);
+            return View(Index());
         }
 
         // GET: Motorcycles/Edit/5
