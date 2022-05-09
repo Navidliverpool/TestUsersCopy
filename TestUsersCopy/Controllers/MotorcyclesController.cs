@@ -80,7 +80,7 @@ namespace TestUsersCopy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MotorcycleId,Model,Price,Name,CategoryId")] Motorcycle motorcycleViewModel, HttpPostedFileBase image)
+        public async Task<ActionResult> Create(Motorcycle motorcycleViewModel, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
@@ -102,10 +102,11 @@ namespace TestUsersCopy.Controllers
                 }
 
                 var createModel = new Motorcycle();
+                createModel.MotorcycleId = motorcycleViewModel.MotorcycleId;
                 createModel.Model = motorcycleViewModel.Model;
                 createModel.Price = motorcycleViewModel.Price;
-                createModel.Brand.Name = motorcycleViewModel.Brand.Name;
-                createModel.Category.CategoryId = (int)motorcycleViewModel.CategoryId;
+                createModel.BrandId = motorcycleViewModel.BrandId;
+                createModel.CategoryId = motorcycleViewModel.CategoryId;
                 createModel.Image = motorcycleViewModel.Image;
 
                 ////This was suppose to be used for refactoring the project in order to implement DI. But I undo it and it's dependencies for now.
@@ -113,10 +114,14 @@ namespace TestUsersCopy.Controllers
 
                 db.Entry(createModel).State = System.Data.Entity.EntityState.Modified;
 
-                
+                ViewBag.BrandId =
+                    new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.BrandId);
+                ViewBag.CategoryId =
+                    new SelectList(db.Categories, "CategoryId", "MotoCategory", motorcycleViewModel.CategoryId);
+
             }
 
-            return View(Index());
+            return View();
         }
 
         // GET: Motorcycles/Edit/5
