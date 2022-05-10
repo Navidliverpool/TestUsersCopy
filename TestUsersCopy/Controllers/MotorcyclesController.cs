@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -80,7 +83,7 @@ namespace TestUsersCopy.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Motorcycle motorcycleViewModel, HttpPostedFileBase image)
+        public async Task<ActionResult> Create(MotorcycleVM motorcycleViewModel, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
@@ -98,16 +101,18 @@ namespace TestUsersCopy.Controllers
                         data = memoryStream.ToArray();
                     }
 
-                    motorcycleViewModel.Image = data;
+                    
+
+                    motorcycleViewModel.Motorcycle.Image = data;
                 }
 
-                var createModel = new Motorcycle();
-                createModel.MotorcycleId = motorcycleViewModel.MotorcycleId;
-                createModel.Model = motorcycleViewModel.Model;
-                createModel.Price = motorcycleViewModel.Price;
-                createModel.BrandId = motorcycleViewModel.BrandId;
-                createModel.CategoryId = motorcycleViewModel.CategoryId;
-                createModel.Image = motorcycleViewModel.Image;
+                var createModel = new MotorcycleVM();
+                createModel.Motorcycle.MotorcycleId = motorcycleViewModel.Motorcycle.MotorcycleId;
+                createModel.Motorcycle.Model = motorcycleViewModel.Motorcycle.Model;
+                createModel.Motorcycle.Price = motorcycleViewModel.Motorcycle.Price;
+                createModel.Motorcycle.BrandId = motorcycleViewModel.Motorcycle.BrandId;
+                createModel.Motorcycle.CategoryId = motorcycleViewModel.Motorcycle.CategoryId;
+                createModel.Motorcycle.Image = motorcycleViewModel.Motorcycle.Image;
 
                 ////This was suppose to be used for refactoring the project in order to implement DI. But I undo it and it's dependencies for now.
                 //(_motorcycleRepository as IDbCommon<MotorcycleVM>).EntryState(motorcycleToUpdate);
@@ -115,10 +120,9 @@ namespace TestUsersCopy.Controllers
                 db.Entry(createModel).State = System.Data.Entity.EntityState.Modified;
 
                 ViewBag.BrandId =
-                    new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.BrandId);
+                    new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.Motorcycle.BrandId);
                 ViewBag.CategoryId =
-                    new SelectList(db.Categories, "CategoryId", "MotoCategory", motorcycleViewModel.CategoryId);
-
+                    new SelectList(db.Categories, "CategoryId", "MotoCategory", motorcycleViewModel.Motorcycle.CategoryId);
             }
 
             return View();
@@ -279,5 +283,6 @@ namespace TestUsersCopy.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }
