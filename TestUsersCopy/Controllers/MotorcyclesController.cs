@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.Mvc;
 using TestUsersCopy.Data.Repositories;
 using TestUsersCopy.Models;
+using TestUsersCopy.ViewModels;
 
 namespace TestUsersCopy.Controllers
 {
@@ -85,7 +86,7 @@ namespace TestUsersCopy.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(MotorcycleVM motorcycleViewModel, HttpPostedFileBase image)
         {
-            if (ModelState.IsValid)
+                if (ModelState.IsValid)
             {
                 if (image != null)
                 {
@@ -101,23 +102,24 @@ namespace TestUsersCopy.Controllers
                         data = memoryStream.ToArray();
                     }
 
-                    
 
-                    motorcycleViewModel.Motorcycle.Image = data;
+                    var createModel = new Motorcycle();
+                    createModel.MotorcycleId = motorcycleViewModel.Motorcycle.MotorcycleId;
+                    createModel.Model = motorcycleViewModel.Motorcycle.Model;
+                    createModel.Price = motorcycleViewModel.Motorcycle.Price;
+                    createModel.BrandId = motorcycleViewModel.Motorcycle.BrandId;
+                    createModel.CategoryId = motorcycleViewModel.Motorcycle.CategoryId;
+                    createModel.Image = data;
+
+                    ////This was suppose to be used for refactoring the project in order to implement DI. But I undo it and it's dependencies for now.
+                    //(_motorcycleRepository as IDbCommon<MotorcycleVM>).EntryState(motorcycleToUpdate);
+
+                    db.Entry(createModel).State = System.Data.Entity.EntityState.Modified;
+
+                    //motorcycleViewModel.Motorcycle.Image = data;
                 }
 
-                var createModel = new MotorcycleVM();
-                createModel.Motorcycle.MotorcycleId = motorcycleViewModel.Motorcycle.MotorcycleId;
-                createModel.Motorcycle.Model = motorcycleViewModel.Motorcycle.Model;
-                createModel.Motorcycle.Price = motorcycleViewModel.Motorcycle.Price;
-                createModel.Motorcycle.BrandId = motorcycleViewModel.Motorcycle.BrandId;
-                createModel.Motorcycle.CategoryId = motorcycleViewModel.Motorcycle.CategoryId;
-                createModel.Motorcycle.Image = motorcycleViewModel.Motorcycle.Image;
-
-                ////This was suppose to be used for refactoring the project in order to implement DI. But I undo it and it's dependencies for now.
-                //(_motorcycleRepository as IDbCommon<MotorcycleVM>).EntryState(motorcycleToUpdate);
-
-                db.Entry(createModel).State = System.Data.Entity.EntityState.Modified;
+                
 
                 ViewBag.BrandId =
                     new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.Motorcycle.BrandId);
