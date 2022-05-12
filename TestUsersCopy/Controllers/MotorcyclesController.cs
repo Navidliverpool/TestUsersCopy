@@ -74,8 +74,14 @@ namespace TestUsersCopy.Controllers
         [Authorize()]
         public ActionResult Create()
         {
-            ViewBag.BrandId = new SelectList(_brandRepository.GetBrands(), "BrandId", "Name");
-            ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories(), "CategoryId", "MotoCategory");
+            ViewBag.BrandId =
+             new SelectList(db.Brands, "BrandId", "Name");
+
+            ViewBag.CategoryId =
+                    new SelectList(db.Categories, "CategoryId", "MotoCategory");
+
+            //ViewBag.BrandId = new SelectList(_brandRepository.GetBrands(), "BrandId", "Name");
+            //ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories(), "CategoryId", "MotoCategory");
             return View();
         }
 
@@ -107,7 +113,7 @@ namespace TestUsersCopy.Controllers
                     createModel.MotorcycleId = motorcycleViewModel.Motorcycle.MotorcycleId;
                     createModel.Model = motorcycleViewModel.Motorcycle.Model;
                     createModel.Price = motorcycleViewModel.Motorcycle.Price;
-                    createModel.BrandId = motorcycleViewModel.Motorcycle.BrandId;
+                    createModel.Brand = motorcycleViewModel.Motorcycle.Brand;
                     createModel.CategoryId = motorcycleViewModel.Motorcycle.CategoryId;
                     createModel.Image = data;
 
@@ -119,15 +125,14 @@ namespace TestUsersCopy.Controllers
                     //motorcycleViewModel.Motorcycle.Image = data;
                 }
 
-                
 
-                ViewBag.BrandId =
-                    new SelectList(db.Brands, "BrandId", "Name", motorcycleViewModel.Motorcycle.BrandId);
-                ViewBag.CategoryId =
-                    new SelectList(db.Categories, "CategoryId", "MotoCategory", motorcycleViewModel.Motorcycle.CategoryId);
+                //ViewBag.BrandId = new SelectList(_brandRepository.GetBrands(), "BrandId", "Name");
+                //ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories(), "CategoryId", "MotoCategory");
+
+
             }
 
-            return View();
+            return View(motorcycleViewModel);
         }
 
         // GET: Motorcycles/Edit/5

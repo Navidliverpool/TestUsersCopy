@@ -50,12 +50,11 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Motorcycle.BrandId, "Brand", new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(m => m.Motorcycle.BrandId,
-                 (SelectList)ViewBag.BrandId,
-                 Model.Motorcycle.Brand.BrandId)
+            @Html.DropDownListFor(m => m.Motorcycle.Brand,
+                 (SelectList)ViewBag.BrandId)
             @Html.ValidationMessageFor(model => model.Motorcycle.BrandId)
         </div>
-    </div>  
+    </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Motorcycle.CategoryId, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
