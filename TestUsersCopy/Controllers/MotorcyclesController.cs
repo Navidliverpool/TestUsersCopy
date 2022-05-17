@@ -75,10 +75,10 @@ namespace TestUsersCopy.Controllers
         public ActionResult Create()
         {
             ViewBag.BrandId =
-             new SelectList(db.Brands, "BrandId", "Name");
+             new SelectList(db.Brands, "Name", "Name");
 
             ViewBag.CategoryId =
-                    new SelectList(db.Categories, "CategoryId", "MotoCategory");
+                    new SelectList(db.Categories, "MotoCategory", "MotoCategory");
 
             //ViewBag.BrandId = new SelectList(_brandRepository.GetBrands(), "BrandId", "Name");
             //ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories(), "CategoryId", "MotoCategory");
@@ -108,6 +108,10 @@ namespace TestUsersCopy.Controllers
                         data = memoryStream.ToArray();
                     }
 
+                    var brand = db.Brands.FirstOrDefault(b => b.BrandId == motorcycleViewModel.Motorcycle.BrandId);
+                    motorcycleViewModel.Motorcycle.Brand = brand;
+                    var category = db.Categories.FirstOrDefault(c => c.CategoryId == motorcycleViewModel.Motorcycle.CategoryId);
+                    motorcycleViewModel.Motorcycle.Category = category;
 
                     var createModel = new Motorcycle();
                     createModel.MotorcycleId = motorcycleViewModel.Motorcycle.MotorcycleId;
@@ -121,18 +125,13 @@ namespace TestUsersCopy.Controllers
                     //(_motorcycleRepository as IDbCommon<MotorcycleVM>).EntryState(motorcycleToUpdate);
 
                     db.Entry(createModel).State = System.Data.Entity.EntityState.Modified;
-
-                    //motorcycleViewModel.Motorcycle.Image = data;
                 }
 
-
-                //ViewBag.BrandId = new SelectList(_brandRepository.GetBrands(), "BrandId", "Name");
-                //ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories(), "CategoryId", "MotoCategory");
-
-
+                //ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
+                //ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "MotoCategory");
             }
 
-            return View(motorcycleViewModel);
+            return View("Index");
         }
 
         // GET: Motorcycles/Edit/5
