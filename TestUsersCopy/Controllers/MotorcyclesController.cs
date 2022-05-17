@@ -74,15 +74,18 @@ namespace TestUsersCopy.Controllers
         [Authorize()]
         public ActionResult Create()
         {
+            var allDealersCreateMethod = new MotorcycleVM();
+            var allDealersList = _dealerRepository.GetDealers();
+            allDealersCreateMethod.AllDealers = allDealersList.Select(d => new SelectListItem
+            {
+                Text = d.Name,
+                Value = d.DealerId.ToString()
+            });
             ViewBag.BrandId =
              new SelectList(db.Brands, "Name", "Name");
-
             ViewBag.CategoryId =
                     new SelectList(db.Categories, "MotoCategory", "MotoCategory");
-
-            //ViewBag.BrandId = new SelectList(_brandRepository.GetBrands(), "BrandId", "Name");
-            //ViewBag.CategoryId = new SelectList(_categoryRepository.GetCategories(), "CategoryId", "MotoCategory");
-            return View();
+            return View(allDealersCreateMethod);
         }
 
         // POST: Motorcycles/Create
@@ -119,6 +122,7 @@ namespace TestUsersCopy.Controllers
                     createModel.Price = motorcycleViewModel.Motorcycle.Price;
                     createModel.Brand = motorcycleViewModel.Motorcycle.Brand;
                     createModel.CategoryId = motorcycleViewModel.Motorcycle.CategoryId;
+                    //createModel.Dealers = motorcycleViewModel.Motorcycle.Dealers;
                     createModel.Image = data;
 
                     ////This was suppose to be used for refactoring the project in order to implement DI. But I undo it and it's dependencies for now.
