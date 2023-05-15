@@ -22,5 +22,7 @@ namespace TestUsersCopy.Models
             set { _selectedDealers = value; }
         }
 
+        //public virtual ICollection<Dealer> AllDealersTest { get; set; }
+
     }
 }

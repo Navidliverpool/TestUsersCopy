@@ -74,18 +74,38 @@ namespace TestUsersCopy.Controllers
         [Authorize()]
         public ActionResult Create()
         {
-            var allDealersCreateMethod = new MotorcycleVM();
+            var DealersCreateMethod = new MotorcycleVM();
             var allDealersList = _dealerRepository.GetDealers();
-            allDealersCreateMethod.AllDealers = allDealersList.Select(d => new SelectListItem
+            //DealersCreateMethod.AllDealers = allDealersList.Select(d => new SelectListItem
+            //{
+            //    Text = d.Name,
+            //    Value = d.DealerId.ToString()
+            //});
+
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            foreach (var entity in allDealersList)
             {
-                Text = d.Name,
-                Value = d.DealerId.ToString()
-            });
-            ViewBag.BrandId =
-             new SelectList(db.Brands, "Name", "Name");
-            ViewBag.CategoryId =
-                    new SelectList(db.Categories, "MotoCategory", "MotoCategory");
-            return View(allDealersCreateMethod);
+                SelectListItem item = new SelectListItem()
+                {
+                    Selected = false,
+                    Text = entity.Name,
+                    Value = entity.DealerId.ToString()
+                };
+                listItems.Add(item);
+            }
+            DealersCreateMethod.AllDealers = listItems;
+
+            //var allDealersListTest = _dealerRepository.GetDealers();
+            //DealersCreateMethod.AllDealersTest = (ICollection<Dealer>)allDealersListTest.Select(d => new SelectListItem
+            //{
+            //    Text = d.Name,
+            //    Value = d.Name
+            //});
+
+            ViewBag.Dealers = new SelectList(db.Dealers, "Name", "Name");
+            ViewBag.BrandId = new SelectList(db.Brands, "Name", "Name");
+            ViewBag.CategoryId = new SelectList(db.Categories, "MotoCategory", "MotoCategory");
+            return View(DealersCreateMethod);
         }
 
         // POST: Motorcycles/Create
@@ -111,10 +131,22 @@ namespace TestUsersCopy.Controllers
                         data = memoryStream.ToArray();
                     }
 
+                    //var motorcycleToUpdate = db.Motorcycles
+                    //                   .Include(m => m.Dealers).First(m => m.MotorcycleId == motorcycleViewModel.Motorcycle.MotorcycleId);
+
                     var brand = db.Brands.FirstOrDefault(b => b.BrandId == motorcycleViewModel.Motorcycle.BrandId);
                     motorcycleViewModel.Motorcycle.Brand = brand;
+
                     var category = db.Categories.FirstOrDefault(c => c.CategoryId == motorcycleViewModel.Motorcycle.CategoryId);
                     motorcycleViewModel.Motorcycle.Category = category;
+
+                    //var newDealers = db.Dealers.Where(
+                    //   m => motorcycleViewModel.SelectedDealers.Contains(m.DealerId)).ToList();
+                    //var updatedDealers = new HashSet<int>(motorcycleViewModel.SelectedDealers);
+                    //foreach (Dealer dealer in db.Dealers)
+                    //{
+                    //    motorcycleToUpdate.Dealers.Add((dealer));
+                    //}
 
                     var createModel = new Motorcycle();
                     createModel.MotorcycleId = motorcycleViewModel.Motorcycle.MotorcycleId;
@@ -122,7 +154,7 @@ namespace TestUsersCopy.Controllers
                     createModel.Price = motorcycleViewModel.Motorcycle.Price;
                     createModel.Brand = motorcycleViewModel.Motorcycle.Brand;
                     createModel.CategoryId = motorcycleViewModel.Motorcycle.CategoryId;
-                    //createModel.Dealers = motorcycleViewModel.Motorcycle.Dealers;
+                    createModel.Dealers = motorcycleViewModel.Motorcycle.Dealers;
                     createModel.Image = data;
 
                     ////This was suppose to be used for refactoring the project in order to implement DI. But I undo it and it's dependencies for now.
@@ -130,9 +162,6 @@ namespace TestUsersCopy.Controllers
 
                     db.Entry(createModel).State = System.Data.Entity.EntityState.Modified;
                 }
-
-                //ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name");
-                //ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "MotoCategory");
             }
 
             return View("Index");
